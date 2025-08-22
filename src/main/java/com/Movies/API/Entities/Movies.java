@@ -1,10 +1,14 @@
 package com.Movies.API.Entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "movies")
 public class Movies {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "movie_id")
     private int id;
     private String MovieName;
     private String Review;
