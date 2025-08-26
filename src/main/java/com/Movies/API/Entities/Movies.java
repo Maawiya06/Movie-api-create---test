@@ -1,5 +1,6 @@
 package com.Movies.API.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,72 +11,45 @@ public class Movies {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "movie_id")
     private int id;
-    private String MovieName;
-    private String Review;
-    private String Writer;
-    private String MainHero;
-    private String LeadHeroin;
 
-    public Movies(int id, String movieName, String review, String writer, String mainHero, String leadHeroin) {
+    private String movieName;
+    private String review;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
+    @JsonManagedReference
+    private Author writer;
+
+    private String mainHero;
+    private String leadHeroin;
+
+    public Movies() {}
+
+    public Movies(int id, String movieName, String review, Author writer, String mainHero, String leadHeroin) {
         this.id = id;
-        MovieName = movieName;
-        Review = review;
-        Writer = writer;
-        MainHero = mainHero;
-        LeadHeroin = leadHeroin;
+        this.movieName = movieName;
+        this.review = review;
+        this.writer = writer;
+        this.mainHero = mainHero;
+        this.leadHeroin = leadHeroin;
     }
 
-    public Movies(){
-        super();
-    }
+    // getters & setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public int getId() {
-        return id;
-    }
+    public String getMovieName() { return movieName; }
+    public void setMovieName(String movieName) { this.movieName = movieName; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getReview() { return review; }
+    public void setReview(String review) { this.review = review; }
 
-    public String getMovieName() {
-        return MovieName;
-    }
+    public Author getWriter() { return writer; }
+    public void setWriter(Author writer) { this.writer = writer; }
 
-    public void setMovieName(String movieName) {
-        MovieName = movieName;
-    }
+    public String getMainHero() { return mainHero; }
+    public void setMainHero(String mainHero) { this.mainHero = mainHero; }
 
-    public String getReview() {
-        return Review;
-    }
-
-    public void setReview(String review) {
-        Review = review;
-    }
-
-    public String getWriter() {
-        return Writer;
-    }
-
-    public void setWriter(String writer) {
-        Writer = writer;
-    }
-
-    public String getMainHero() {
-        return MainHero;
-    }
-
-    public void setMainHero(String mainHero) {
-        MainHero = mainHero;
-    }
-
-    public String getLeadHeroin() {
-        return LeadHeroin;
-    }
-
-    public void setLeadHeroin(String leadHeroin) {
-        LeadHeroin = leadHeroin;
-    }
-
-
+    public String getLeadHeroin() { return leadHeroin; }
+    public void setLeadHeroin(String leadHeroin) { this.leadHeroin = leadHeroin; }
 }
